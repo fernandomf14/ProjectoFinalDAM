@@ -78,7 +78,8 @@ erDiagram
     Usuario {
         int id_usuario PK
         String nombre
-        String apellidos
+        String apellido1
+        String apellido2
         String DNI
         String correoElectronico
         String telefono
@@ -149,7 +150,8 @@ erDiagram
 Usuario [
     int id_usuario PK
     varChar nombre
-    varChar apellidos
+    varChar apellido1
+    varChar apellido2
     varchar DNI (constraint)
     varchar correoElectronico unique
     varchar telefono (constraint)
