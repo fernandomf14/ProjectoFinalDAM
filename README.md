@@ -173,9 +173,9 @@ Matricula {
     int id_matricula PK
     DateTime fechaMatricula
     DateTime fechaExpiracion
-    int id_usuario FK
+    int id_alumno FK
     int id_curso FK
-    constraint fk_matricula foreign key(id_usuario) reference alumno(id_alumno)
+    constraint fk_matricula foreign key(id_alumno) reference alumno(id_alumno)
     constraint fk_matricula_curso foreign key(id_curso) reference curso(id_curso)
 }
 
@@ -215,8 +215,8 @@ Profesor_Imparte {
 Horario {
     int id_horario PK
     Date dia
-    Date horaInicio
-    Date horaFin
+    Time horaInicio
+    Time horaFin
     int id_curso
     int id_profesor 
     int id_modulo
@@ -224,6 +224,8 @@ Horario {
     constraint fk_horario_profesor foreign key(id_profesor) references profesor(id_profesor)
     constraint fk_horario_modulo foreign key(id_modulo) references modulo(id_modulo)
 }
+
+
 
 
 
