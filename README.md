@@ -83,6 +83,9 @@ erDiagram
         String correoElectronico
         String telefono
         String contrasena
+        boolean activo
+        DateTime fecha_alta
+        DateTime fecha_baja
     }
 
     Alumno {
@@ -142,6 +145,87 @@ erDiagram
 | Horario   | Curso     | N:1                 | Horario                        | Cada horario corresponde a un curso                                          |
 
 ## Paso al modelo relacional [TABLAS]:
+
+Usuario [
+    int id_usuario PK
+    varChar nombre
+    varChar apellidos
+    varchar DNI (constraint)
+    varchar correoElectronico unique
+    varchar telefono (constraint)
+    varchar contrasena (ocultada)
+    boolean activo (cuenta activa o no)
+    DateTime fecha_alta
+    DateTime fecha_baja
+    ]
+
+Alumno {
+    int id_alumno PK
+    constraint fk_alumno foreign key(id_alumno) reference Usuario(id_usuario)  
+}
+
+Profesor {
+    int id_profesor PK
+    constraint fk_profesor foreign key(id_profesor) reference Usuario(id_usuario)  
+}
+
+Matricula {
+    int id_matricula PK
+    DateTime fechaMatricula
+    DateTime fechaExpiracion
+    int id_usuario FK
+    int id_curso FK
+    constraint fk_matricula foreign key(id_usuario) reference alumno(id_alumno)
+    constraint fk_matricula_curso foreign key(id_curso) reference curso(id_curso)
+}
+
+Curso {
+    int id_curso PK
+    String nombreCurso
+    int id_ciclo fk
+    constraint fk_curso foreign key(id_ciclo) references ciclo(id_ciclo)
+}
+
+Ciclo {
+    int id_ciclo PK
+    varchar nombre
+    varchar descripcion
+    boolean activo
+    DateTime fechaInicio
+    DateTime fechaFinalizacion
+}
+
+Modulo {
+    int id_modulo PK
+    varchar nombre
+    int horasTotales
+    varchar descripcion
+    int id_curso FK
+    constraint fk_modulo foreign key(id_curso) references curso(id_curso)
+}
+
+Profesor_Imparte {
+    id_profesor fk
+    id_modulo fk
+    constraint fk_imparte_profesor foreign key(id_profesor) references profesor(id_profesor)
+    constraint fk_imparte_modulo foreign key(id_modulo) references modulo(id_modulo)
+    constraint pk_imparte primary key(id_profesor,id_modulo)
+}
+
+Horario {
+    int id_horario PK
+    Date dia
+    Date horaInicio
+    Date horaFin
+    int id_curso
+    int id_profesor 
+    int id_modulo
+    constraint fk_horario_curso foreign key(id_curso) references curso(id_curso)
+    constraint fk_horario_profesor foreign key(id_profesor) references profesor(id_profesor)
+    constraint fk_horario_modulo foreign key(id_modulo) references modulo(id_modulo)
+}
+
+
 
 
 
